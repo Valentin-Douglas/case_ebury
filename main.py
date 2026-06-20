@@ -21,7 +21,7 @@ def main():
         # Relative paths for the database and JSON file. 
         # This allows the script to be run from any location as long as the relative structure is maintained.
         db_path = f'./db_volume/ebury_datalake.db'
-        json_path = f'./data/payments_case_study_json_file.json'
+        json_path = f'./data/case_study_json_file.json'
         
         print("Starting ETL process...")
         # Layered approach to ETL: Extract, Transform, Load

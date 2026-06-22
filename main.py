@@ -5,6 +5,9 @@ from step_01_extract_data import extract_data
 from step_02_transform_data import transform_data
 from step_03_load_data import load_data
 from step_04_fetch_data_retrive import fetch_data_to_dataframe
+from step_05_reporting import generate_reporting
+
+
 
 # ==========================================
 # MAIN ORCHESTRATION
@@ -40,8 +43,8 @@ def main():
     payment_data = fetch_data_to_dataframe(db_path, "SELECT * FROM payment")
     partner_data = fetch_data_to_dataframe(db_path, "SELECT * FROM partner")
     
-    print(payment_data.head(5)) # Display the first few rows of the fetched data
     print(payment_data.info()) # Display the structure of the fetched data
+    print(payment_data.head(5)) # Display the first few rows of the fetched data
     print(partner_data.head(5)) # Display the first few rows of the fetched data
     
     # 1. Count the number of transactions from each partner.
@@ -71,6 +74,16 @@ def main():
     avg_capping_rate_per_currency = merged_data.groupby('currencyCode')['cappingRate'].mean()
     print("Average capping rate per currency:")
     print(avg_capping_rate_per_currency)
+
+    # Generate visual reports
+    generate_reporting(
+        transactions_per_partner,
+        min_exchange_rate,
+        max_exchange_rate, 
+        trades_per_day, 
+        foreign_gross_amount_per_currency, 
+        avg_capping_rate_per_currency
+        )
 
     return merged_data, transactions_per_partner, min_exchange_rate, max_exchange_rate, trades_per_day, foreign_gross_amount_per_currency, avg_capping_rate_per_currency
 

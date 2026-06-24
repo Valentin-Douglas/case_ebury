@@ -11,17 +11,22 @@ The project is divided into two main components as requested:
 1. **Part 1 - ETL Pipeline:** Extracts data from a semi-structured (and partially malformed/dirty) JSON file, applies a strict Data Contract, flattens nested structures, and loads the cleaned data into a dimensional SQLite database (`Payment` and `Partner` tables).
 2. **Part 2 - Querying:** Connects to the generated SQLite database, extracts the tables into Pandas DataFrames, and performs analytical operations to answer the proposed business questions.
 
-## Folder Structure
+## Folder Structure After Run The Solution
 ```text
 case_ebury/
 ├── data/
 │   └── case_study_json_file.json  # Raw data goes here (not versioned)
-├── db_volume/                     # Docker volume mapping for SQLite DB
-│   └── ebury_datalake.db          # Datalake generated from the JSON file (only exists after run the main.py file)
+├── db_volume/                     # Docker volume mapping for SQLite DB and Reports
+│   ├── ebury_datalake.db          # Datalake generated from the JSON file
+│   └── msc/
+│       └── reports/               # Generated PNG visualization charts
 ├── step_01_extract_data.py        # Resilient JSON Line extraction logic
 ├── step_02_transform_data.py      # Data Contract and cleaning logic
-├── step_03_load_data.py           # Database ingestion logic
-├── step_04_fetch_data_retrive.py  # Database querying logic
+├── step_03_01_dt_utils.py         # Database validation utilities (SRP compliant)
+├── step_03_02_smart_load.py       # Smart Database ingestion logic (Append/Skip)
+├── step_03_03_load_data.py        # Orchestrator for the data loading phase
+├── step_04_fetch_data_retrive.py  # Database querying logic via Pandas
+├── step_05_reporting.py           # Deterministic data visualization logic
 ├── main.py                        # Main orchestrator
 ├── requirements.txt               # Python dependencies
 ├── Dockerfile                     # Container configuration

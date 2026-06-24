@@ -11,6 +11,10 @@ The project is divided into two main components as requested:
 1. **Part 1 - ETL Pipeline:** Extracts data from a semi-structured (and partially malformed/dirty) JSON file, applies a strict Data Contract, flattens nested structures, and loads the cleaned data into a dimensional SQLite database (`Payment` and `Partner` tables).
 2. **Part 2 - Querying:** Connects to the generated SQLite database, extracts the tables into Pandas DataFrames, and performs analytical operations to answer the proposed business questions.
 
+To run the process, follow these steps:
+1. **Powershell Terminal** Run the following command inside the project folder to build the Docker image: docker build -t case-ebury .
+2. **Excecute the Docker Image** Just run the Docker image and container.
+
 ## Folder Structure After Run The Solution
 ```text
 case_ebury/
